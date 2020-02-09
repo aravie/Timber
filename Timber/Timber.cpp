@@ -46,7 +46,7 @@ int main()
 
 	// Prepare the bee
 	Texture textureBee;
-	textureBee.loadFromFile("graphics/bee.png");
+	textureBee.loadFromFile("graphics/insect.png");
 	Sprite spriteBee;
 	spriteBee.setTexture(textureBee);
 	spriteBee.setPosition(0, 800);
@@ -65,8 +65,8 @@ int main()
 	spriteCloud2.setTexture(textureCloud);
 	spriteCloud3.setTexture(textureCloud);
 	spriteCloud1.setPosition(0, 0);
-	spriteCloud2.setPosition(0, 150);
-	spriteCloud3.setPosition(0, 300);
+	spriteCloud2.setPosition(0, 250);
+	spriteCloud3.setPosition(0, 500);
 	bool cloud1Active = false;
 	bool cloud2Active = false;
 	bool cloud3Active = false;
@@ -98,7 +98,7 @@ int main()
 	sf::Text scoreText;
 
 	// We need to choose a font
-	sf::Font font;
+	Font font;
 	font.loadFromFile("fonts/KOMIKAP_.ttf");
 
 	// Set the font to our message
@@ -211,7 +211,7 @@ int main()
 
 			// Reset the time and the score
 			score = 0;
-			timeRemaining = 6;
+			timeRemaining = 5;
 
 			// Make all the branches disappear
 			for (int i = 1; i < NUM_BRANCHES; i++)
@@ -255,7 +255,7 @@ int main()
 			// Handle the left cursor key
 			if (Keyboard::isKeyPressed(Keyboard::Left))
 			{
-				// Make sure the player is on the left
+				// Make sure the player is on the right
 				playerSide = side::LEFT;
 				score++;
 
@@ -268,7 +268,7 @@ int main()
 				// update the branches
 				updateBranches(score);
 
-				// set the log flying to the right
+				// set the log flying to the left
 				spriteLog.setPosition(810, 720);
 				logSpeedX = 5000;
 				logActive = true;
@@ -431,7 +431,6 @@ int main()
 					// Move the sprite to the left side
 					branches[i].setPosition(610, height);
 					// Flip the sprite round the other way
-					branches[i].setOrigin(220, 40);
 					branches[i].setRotation(180);
 				}
 				else if (branchPositions[i] == side::RIGHT)
@@ -439,32 +438,12 @@ int main()
 					// Move the sprite to the right side
 					branches[i].setPosition(1330, height);
 					// Set the sprite rotation to normal
-					branches[i].setOrigin(220, 40);
 					branches[i].setRotation(0);
 				}
 				else
 				{
 					// Hide the branch
 					branches[i].setPosition(3000, height);
-				}
-			}
-
-			// Handle a flying log
-			if (logActive)
-			{
-				spriteLog.setPosition(
-					spriteLog.getPosition().x +
-					(logSpeedX * dt.asSeconds()),
-					spriteLog.getPosition().y +
-					(logSpeedY * dt.asSeconds()));
-
-				// Has the log reached the right hand edge?
-				if (spriteLog.getPosition().x < -100 ||
-					spriteLog.getPosition().x > 2000)
-				{
-					// set it up ready to be a while new log next frame
-					logActive = false;
-					spriteLog.setPosition(810, 720);
 				}
 			}
 		}
