@@ -185,20 +185,6 @@ int main()
 	while (window.isOpen())
 	{
 		// Handle Players input
-		Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::KeyReleased && !paused)
-			{
-				// Listen for key press again
-				acceptInput = true;
-
-				// hide the axe
-				spriteAxe.setPosition(2000,
-					spriteAxe.getPosition().y);
-			}
-		}
-
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
 			window.close();
@@ -223,58 +209,6 @@ int main()
 			// Move the player into player position
 			spritePlayer.setPosition(580, 720);
 			acceptInput = true;
-		}
-
-		// Wrap the player controls to
-		// Make sure we are accepting input
-		if (acceptInput)
-		{
-			// First handle pressing the right coursor key
-			if (Keyboard::isKeyPressed(Keyboard::Right))
-			{
-				// Make sure the player is on the right
-				playerSide = side::RIGHT;
-				score++;
-
-				// Add to the amount of time remaining
-				timeRemaining += (2 / score) + .15;
-
-				spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
-				spritePlayer.setPosition(1200, 720);
-
-				// update the branches
-				updateBranches(score);
-
-				// set the log flying to the left
-				spriteLog.setPosition(810, 720);
-				logSpeedX = -5000;
-				logActive = true;
-
-				acceptInput = false;
-			}
-			// Handle the left cursor key
-			if (Keyboard::isKeyPressed(Keyboard::Left))
-			{
-				// Make sure the player is on the right
-				playerSide = side::LEFT;
-				score++;
-
-				// Add to the amount of time remaining
-				timeRemaining += (2 / score) + .15;
-
-				spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
-				spritePlayer.setPosition(580, 720);
-
-				// update the branches
-				updateBranches(score);
-
-				// set the log flying to the left
-				spriteLog.setPosition(810, 720);
-				logSpeedX = 5000;
-				logActive = true;
-
-				acceptInput = false;
-			}
 		}
 
 		// Update the scene
