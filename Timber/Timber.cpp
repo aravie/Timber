@@ -139,12 +139,6 @@ int main()
 		branches[i].setOrigin(220, 20);
 	}
 
-	updateBranches(1);
-	updateBranches(2);
-	updateBranches(3);
-	updateBranches(4);
-	updateBranches(5);
-
 	while (window.isOpen())
 	{
 		// Handle Players input
@@ -371,29 +365,4 @@ int main()
 		window.display();
 	}
 	return 0;
-}
-
-// Function definition
-void updateBranches(int seed)
-{
-	// Move all the branches down one place
-	for (int j = NUM_BRANCHES - 1; j > 0; j--)
-		branchPositions[j] = branchPositions[j - 1];
-
-	// Spawn a new branch at position 0
-	// LEFT, RIGHT or NONE
-	srand((int)time(0) + seed);
-	int r = (rand() % 5);
-	switch (r)
-	{
-	case 0:
-		branchPositions[0] = side::LEFT;
-		break;
-	case 1:
-		branchPositions[0] = side::RIGHT;
-		break;
-	default:
-		branchPositions[0] = side::NONE;
-		break;
-	}
 }
